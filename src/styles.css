@@ -7,3 +7,8 @@ app-menu {
     left: 3rem;
     z-index: 999999;
 }
+
+html, body, #mapa {
+    height: 100%;
+    width: 100%;
+}

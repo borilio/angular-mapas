@@ -1,1 +1,11 @@
-<p>menu works!</p>
+<ul class="list-group">
+    <ng-container *ngFor="let item of menuItems">
+        <li 
+            [routerLink]="item.ruta"
+            routerLinkActive="active"
+            [class]="item.icon"
+            class="list-group-item">
+            {{item.nombre}}
+        </li>
+    </ng-container>
+</ul>

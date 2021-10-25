@@ -13,7 +13,6 @@ export class FullScreenComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    (mapboxgl as any).accessToken = environment.mapboxToken;
 
     let map = new mapboxgl.Map({
       container: 'mapa',

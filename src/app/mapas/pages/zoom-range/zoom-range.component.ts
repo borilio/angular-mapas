@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 
 import * as mapboxgl from 'mapbox-gl';
 
@@ -7,7 +7,7 @@ import * as mapboxgl from 'mapbox-gl';
   templateUrl: './zoom-range.component.html',
   styleUrls: ['./zoom-range.component.css']
 })
-export class ZoomRangeComponent implements OnInit, AfterViewInit {
+export class ZoomRangeComponent implements  AfterViewInit, OnDestroy {
 
   @ViewChild("mapa") divMapa! : ElementRef;
   mapa!: mapboxgl.Map;
@@ -19,8 +19,14 @@ export class ZoomRangeComponent implements OnInit, AfterViewInit {
 
   constructor() {}
   
-  ngOnInit():void {}
-
+  ngOnDestroy(): void {
+    //Eliminamos los listeners que hemos creado para liberar recursos
+    this.mapa.off('zoom', ()=>{});
+    this.mapa.off('zoomend', ()=>{});
+    this.mapa.off('move', ()=>{});
+  }
+  
+  
   ngAfterViewInit(): void {
     // Inicializamos el objeto
     this.mapa = new mapboxgl.Map({

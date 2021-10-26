@@ -14,6 +14,7 @@ export class ZoomRangeComponent implements OnInit, AfterViewInit {
   zoomLevel: number = 15;
   zoomLevelMax: number = 18;
   zoomLevelMin: number = 2;
+  zoomPasos: number = 0.2;
 
   constructor() {}
   
@@ -60,6 +61,14 @@ export class ZoomRangeComponent implements OnInit, AfterViewInit {
   
   zoomOut():void {
     this.mapa.zoomOut();
+  }
+
+  //Se llama cuando se cambia el input range para cambiar el zoom
+  zoomChanges(valor:string):void{
+    this.mapa.setZoom(Number(valor));   //Sin animación
+    //this.mapa.zoomTo(Number(valor)); //Con transición
+    //De un input recibimos siempre un string, y setZoom o zoomTo reciben números
+    //La animación/transición de zoomTo tarda en arrancar y queda un poco trabado, prefiero directo con setZoom()
   }
 
 

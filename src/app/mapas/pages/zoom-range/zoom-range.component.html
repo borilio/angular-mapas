@@ -6,7 +6,15 @@
             Zoom: {{this.zoomLevel | number }}
             Lng,lat: [123,456]
         </label>
-        <input type="range" class="form-range" id="zoom-range" >
+        <input type="range" 
+            class="form-range" 
+            [value]="zoomLevel"
+            [min]="zoomLevelMin"
+            [max]="zoomLevelMax"
+            [step]="zoomPasos"
+            #zoomInput
+            (input)="zoomChanges(zoomInput.value)"
+            id="zoom-range"/>
     </div>
 
     <div class="col-12">

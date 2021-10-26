@@ -15,6 +15,7 @@ export class ZoomRangeComponent implements OnInit, AfterViewInit {
   zoomLevelMax: number = 18;
   zoomLevelMin: number = 2;
   zoomPasos: number = 0.2;
+  lnglat: [number,number] = [-4.554049212537303, 36.73842272092004]; //PTA 
 
   constructor() {}
   
@@ -25,7 +26,7 @@ export class ZoomRangeComponent implements OnInit, AfterViewInit {
     this.mapa = new mapboxgl.Map({
       container: this.divMapa.nativeElement,
       style: 'mapbox://styles/mapbox/streets-v11',
-      center: [-4.554049212537303, 36.73842272092004],
+      center: this.lnglat,
       zoom: this.zoomLevel,
     });
 
@@ -50,6 +51,15 @@ export class ZoomRangeComponent implements OnInit, AfterViewInit {
           this.mapa.zoomTo(this.zoomLevelMin);
         }
       }
+    });
+
+    // Cuando movemos el mapa...
+    this.mapa.on("move", (evento)=>{
+      //Las coordenadas actuales se pueden sacar del mapa o del evento, pero no se
+      //que diferencia hay entre una y otra. FernandoHerrera lo sacó del evento y yo del mapa.
+      // const coordenadas = evento.target.getCenter(); 
+      const coordenadas = this.mapa.getCenter();
+      this.lnglat = [coordenadas.lng, coordenadas.lat];
     });
 
 
